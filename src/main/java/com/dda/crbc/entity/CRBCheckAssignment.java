@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "CRBCheckAssignment")
+@Table(name = "crbcheckassignment")
 public class CRBCheckAssignment {
 
     @Id

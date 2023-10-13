@@ -8,7 +8,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * CORS configuration for all environments.
@@ -19,6 +19,7 @@ public class CorsPolicy {
 
     /**
      * CORS configuration for local, all origins and methods are allowed.
+     *
      * @return
      */
     @Profile({"local"})
@@ -26,9 +27,9 @@ public class CorsPolicy {
     CorsConfigurationSource corsConfigurationSourceLocalAndDev() {
         log.info("Local/Dev CORS policy applied");
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedMethods(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "ActivityLog")
+@Table(name = "activitylog")
 public class ActivityLog {
 
     @Id
