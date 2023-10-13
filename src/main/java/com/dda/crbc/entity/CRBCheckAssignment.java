@@ -1,14 +1,17 @@
-package com.dda.crbc.model;
+package com.dda.crbc.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Table(name = "CRBCheckAssignment")
 public class CRBCheckAssignment {
 
@@ -30,25 +33,4 @@ public class CRBCheckAssignment {
 
     @Column(name = "due_date")
     private Timestamp dueDate;
-
-    public CRBCheckAssignment() {
-    }
-
-    public CRBCheckAssignment(CRBCheckRequest crbCheckRequest, Employer employer, Timestamp assignDate, Timestamp dueDate) {
-        this.crbCheckRequest = crbCheckRequest;
-        this.employer = employer;
-        this.assignDate = assignDate;
-        this.dueDate = dueDate;
-    }
-
-    @Override
-    public String toString() {
-        return "CRBCheckAssignment{" +
-                "assignmentId=" + assignmentId +
-                ", crbCheckRequest=" + crbCheckRequest +
-                ", employer=" + employer +
-                ", assignDate=" + assignDate +
-                ", dueDate=" + dueDate +
-                '}';
-    }
 }

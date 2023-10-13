@@ -1,14 +1,17 @@
-package com.dda.crbc.model;
+package com.dda.crbc.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Table(name = "crbcheckRequest")
 public class CRBCheckRequest {
 
@@ -39,31 +42,4 @@ public class CRBCheckRequest {
 
     @Column(name = "last_updated", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp lastUpdated;
-
-    public CRBCheckRequest() {
-    }
-
-    public CRBCheckRequest(Applicant applicant, Timestamp requestDate, String status, Administrator assignedTo, String comments, Timestamp completionDate, Timestamp lastUpdated) {
-        this.applicant = applicant;
-        this.requestDate = requestDate;
-        this.status = status;
-        this.assignedTo = assignedTo;
-        this.comments = comments;
-        this.completionDate = completionDate;
-        this.lastUpdated = lastUpdated;
-    }
-
-    @Override
-    public String toString() {
-        return "CRBCheckRequest{" +
-                "requestId=" + requestId +
-                ", applicant=" + applicant +
-                ", requestDate=" + requestDate +
-                ", status='" + status + '\'' +
-                ", assignedTo=" + assignedTo +
-                ", comments='" + comments + '\'' +
-                ", completionDate=" + completionDate +
-                ", lastUpdated=" + lastUpdated +
-                '}';
-    }
 }

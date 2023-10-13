@@ -1,9 +1,11 @@
 package com.dda.crbc.reepository;
 
+import com.dda.crbc.entity.Feedback;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface FeedbackRepository extends JpaRepository {
+/**
+ * Spring Data JPA repository for the {@link Feedback} entity.
+ */
+public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
 
 }

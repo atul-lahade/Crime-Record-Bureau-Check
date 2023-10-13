@@ -1,9 +1,11 @@
 package com.dda.crbc.reepository;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import com.dda.crbc.entity.ActivityLog;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface ActivityLogRepository extends CrudRepository {
+/**
+ * Spring Data JPA repository for the {@link ActivityLog} entity.
+ */
+public interface ActivityLogRepository extends JpaRepository<ActivityLog, Long> {
 
 }
