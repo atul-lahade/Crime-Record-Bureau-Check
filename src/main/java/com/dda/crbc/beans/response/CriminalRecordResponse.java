@@ -1,6 +1,5 @@
 package com.dda.crbc.beans.response;
 
-import com.dda.crbc.entity.Applicant;
 import lombok.*;
 
 import java.io.Serializable;

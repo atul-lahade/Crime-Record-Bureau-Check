@@ -11,10 +11,6 @@ public enum UserType {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
-
     public static UserType of(String value) {
         for (UserType userType : UserType.values()) {
             if (userType.getValue().equals(value)) {
@@ -22,6 +18,10 @@ public enum UserType {
             }
         }
         throw new IllegalArgumentException(value + " is not a valid user type");
+    }
+
+    public String getValue() {
+        return value;
     }
 
     @Override
