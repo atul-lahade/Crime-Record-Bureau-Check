@@ -1,9 +1,12 @@
 package com.dda.crbc.controller;
 
+import com.dda.crbc.beans.request.SignInRequest;
 import com.dda.crbc.beans.request.SignUpRequest;
 import com.dda.crbc.beans.response.Response;
+import com.dda.crbc.beans.response.SignInResponse;
 import com.dda.crbc.beans.response.SignUpResponse;
 import com.dda.crbc.constants.CommonErrorCodes;
+import com.dda.crbc.exception.ServiceException;
 import com.dda.crbc.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +24,7 @@ import java.text.ParseException;
  * Registration endpoints.
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000/")
 public class RegistrationController {
 
     @Autowired
@@ -34,5 +37,14 @@ public class RegistrationController {
                 .message(CommonErrorCodes.SUCCESS)
                 .status(HttpStatus.OK.value())
                 .data(signUpResponse).build());
+    }
+
+    @PostMapping("/sign-in")
+    public ResponseEntity<Response<SignInResponse>> signUp(@RequestBody SignInRequest signInRequest) throws ServiceException {
+        SignInResponse signInResponse = registrationService.signIn(signInRequest);
+        return ResponseEntity.ok(Response.<SignInResponse>builder()
+                .message(CommonErrorCodes.SUCCESS)
+                .status(HttpStatus.OK.value())
+                .data(signInResponse).build());
     }
 }

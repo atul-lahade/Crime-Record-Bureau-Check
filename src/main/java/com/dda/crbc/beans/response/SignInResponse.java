@@ -7,12 +7,14 @@ import java.io.Serializable;
 
 @Data
 @Builder
-public class SignUpResponse implements Serializable {
+public class SignInResponse implements Serializable {
 
-    private static final long serialVersionUID = 3410901347252367917L;
+    private static final long serialVersionUID = 3410901347255362917L;
 
+    private String userName;
+    private String userType;
     private Long userId;
     private Long applicantId;
     private Long administratorId;
-    private Long employerId;
+
 }

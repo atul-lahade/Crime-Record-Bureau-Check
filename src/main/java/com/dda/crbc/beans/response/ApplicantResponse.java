@@ -21,7 +21,6 @@ public class ApplicantResponse implements Serializable {
     public static class Applicant implements Serializable {
         private static final long serialVersionUID = -723792142642311163L;
         private Long applicantId;
-        private CrbUserResponse.CrbUser user;
         private String fullName;
         private Date dateOfBirth;
         private String gender;
@@ -30,5 +29,6 @@ public class ApplicantResponse implements Serializable {
         private String address;
         private String identificationNumber;
         private String passportNumber;
+        private CriminalRecord criminalRecord;
     }
 }

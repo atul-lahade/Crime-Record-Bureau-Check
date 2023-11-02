@@ -7,7 +7,7 @@ spring:
   application:
     name: Criminal Record Bureau Check
   profiles:
-    active: @spring.profiles.active@
+    active: spring.profiles.active
   jpa:
     properties:
       hibernate:

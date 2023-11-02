@@ -1,6 +1,7 @@
 package com.dda.crbc.reepository;
 
 import com.dda.crbc.entity.Applicant;
+import com.dda.crbc.entity.CrbUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 
+
+    Applicant findByCrbUser(CrbUser crbUser);
 }

@@ -18,8 +18,8 @@ public class Administrator {
     @Column(name = "administrator_id")
     private Long administratorId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private CrbUser crbUser;
 
     @Column(name = "full_name", nullable = false, length = 100)
