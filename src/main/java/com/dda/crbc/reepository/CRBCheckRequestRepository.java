@@ -1,11 +1,11 @@
 package com.dda.crbc.reepository;
 
-import com.dda.crbc.entity.CRBCheckRequest;
+import com.dda.crbc.entity.CrbCheckRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * Spring Data JPA repository for the {@link CRBCheckRequest} entity.
+ * Spring Data JPA repository for the {@link CrbCheckRequest} entity.
  */
-public interface CRBCheckRequestRepository extends JpaRepository<CRBCheckRequest, Long> {
+public interface CRBCheckRequestRepository extends JpaRepository<CrbCheckRequest, Long> {
 
 }

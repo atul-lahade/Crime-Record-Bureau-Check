@@ -22,7 +22,7 @@ public class CRBCheckAssignment {
 
     @ManyToOne
     @JoinColumn(name = "request_id", referencedColumnName = "request_id")
-    private CRBCheckRequest crbCheckRequest;
+    private CrbCheckRequest crbCheckRequest;
 
     @ManyToOne
     @JoinColumn(name = "employer_id", referencedColumnName = "employer_id")

@@ -1,20 +1,18 @@
 package com.dda.crbc.service;
 
-import com.dda.crbc.beans.response.ActivityLogResponse;
-import com.dda.crbc.beans.response.ApplicantResponse;
-import com.dda.crbc.beans.response.CrbUserResponse;
-import com.dda.crbc.beans.response.CriminalRecord;
+import com.dda.crbc.beans.request.CrbUpdateRequest;
+import com.dda.crbc.beans.response.*;
+import com.dda.crbc.constants.RequestStatus;
 import com.dda.crbc.entity.ActivityLog;
 import com.dda.crbc.entity.Applicant;
-import com.dda.crbc.reepository.ActivityLogRepository;
-import com.dda.crbc.reepository.ApplicantRepository;
-import com.dda.crbc.reepository.CriminalRecordRepository;
+import com.dda.crbc.entity.CrbCheckRequest;
+import com.dda.crbc.reepository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,6 +29,12 @@ public class GetAllService {
 
     @Autowired
     private CriminalRecordRepository criminalRecordRepository;
+
+    @Autowired
+    private CRBCheckRequestRepository crbCheckRequestRepository;
+
+    @Autowired
+    private AdministratorRepository administratorRepository;
 
     public List<ActivityLogResponse.ActivityLog> getAllActivityLogs() {
 
@@ -55,7 +59,7 @@ public class GetAllService {
 
         List<ApplicantResponse.Applicant> applicants = new ArrayList<>();
 
-        for (Applicant applicant: applicantList) {
+        for (Applicant applicant : applicantList) {
             CriminalRecord criminalRecord = constructCriminalRecord(applicant);
             applicants.add(ApplicantResponse.Applicant.builder()
                     .applicantId(applicant.getApplicantId())
@@ -75,7 +79,7 @@ public class GetAllService {
 
     private CriminalRecord constructCriminalRecord(Applicant applicant) {
         Optional<com.dda.crbc.entity.CriminalRecord> criminalRecord = criminalRecordRepository.findByApplicant(applicant);
-        if(!criminalRecord.isPresent()){
+        if (!criminalRecord.isPresent()) {
             return null;
         }
         return CriminalRecord.builder()
@@ -84,5 +88,78 @@ public class GetAllService {
                 .severityLevel(criminalRecord.get().getSeverityLevel())
                 .judicialAuthority(criminalRecord.get().getJudicialAuthority())
                 .build();
+    }
+
+    public List<RequestResponse.Request> getAllRequests(Long adminId) {
+        List<RequestResponse.Request> requestList = new ArrayList<>();
+        List<CrbCheckRequest> crbCheckRequestList = crbCheckRequestRepository.findAll();
+
+        for (CrbCheckRequest request : crbCheckRequestList) {
+            if (request.getAssignedTo().getAdministratorId().equals(adminId)) {
+                requestList.add(RequestResponse.Request.builder()
+                        .requestId(request.getRequestId())
+                        .applicantId(request.getApplicant().getApplicantId())
+                        .requestDate(request.getRequestDate())
+                        .status(request.getStatus())
+                        .assignedTo(request.getAssignedTo().getAdministratorId())
+                        .comments(request.getComments())
+                        .completionDate(request.getCompletionDate())
+                        .lastUpdated(request.getLastUpdated())
+                        .build());
+            }
+        }
+        return requestList;
+    }
+
+    public List<RequestResponse.Request> getAllNewRequests(Long adminId) {
+        List<RequestResponse.Request> requestList = new ArrayList<>();
+        List<CrbCheckRequest> crbCheckRequestList = crbCheckRequestRepository.findAll();
+
+        for (CrbCheckRequest request : crbCheckRequestList) {
+            if (request.getAssignedTo().getAdministratorId().equals(adminId) && !request.getStatus().equals(RequestStatus.COMPLETED.getValue())) {
+                requestList.add(RequestResponse.Request.builder()
+                        .requestId(request.getRequestId())
+                        .applicantId(request.getApplicant().getApplicantId())
+                        .requestDate(request.getRequestDate())
+                        .status(request.getStatus())
+                        .assignedTo(request.getAssignedTo().getAdministratorId())
+                        .comments(request.getComments())
+                        .completionDate(request.getCompletionDate())
+                        .lastUpdated(request.getLastUpdated())
+                        .build());
+            }
+        }
+        return requestList;
+    }
+
+    public CrbCheckRequest updateCrbRequest(CrbUpdateRequest crbUpdateRequest) {
+        log.info("Crb update request: {}", crbUpdateRequest);
+        CrbCheckRequest request = crbCheckRequestRepository.getById(crbUpdateRequest.getRequestId());
+        request.setStatus(crbUpdateRequest.getStatus());
+        request.setCompletionDate(new Timestamp(System.currentTimeMillis()));
+        request.setComments(crbUpdateRequest.getComment());
+        request = crbCheckRequestRepository.save(request);
+        return request;
+    }
+
+    public List<RequestResponse.Request> getAllRequestsApplicant(Long applicantId) {
+        List<RequestResponse.Request> requestList = new ArrayList<>();
+        List<CrbCheckRequest> crbCheckRequestList = crbCheckRequestRepository.findAll();
+
+        for (CrbCheckRequest request : crbCheckRequestList) {
+            if (request.getApplicant().getApplicantId().equals(applicantId)) {
+                requestList.add(RequestResponse.Request.builder()
+                        .requestId(request.getRequestId())
+                        .applicantId(request.getApplicant().getApplicantId())
+                        .requestDate(request.getRequestDate())
+                        .status(request.getStatus())
+                        .assignedTo(request.getAssignedTo().getAdministratorId())
+                        .comments(request.getComments())
+                        .completionDate(request.getCompletionDate())
+                        .lastUpdated(request.getLastUpdated())
+                        .build());
+            }
+        }
+        return requestList;
     }
 }

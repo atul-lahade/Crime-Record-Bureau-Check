@@ -20,7 +20,7 @@ public class Document {
 
     @ManyToOne
     @JoinColumn(name = "request_id", referencedColumnName = "request_id")
-    private CRBCheckRequest crbCheckRequest;
+    private CrbCheckRequest crbCheckRequest;
 
     @Column(name = "document_type", length = 50)
     private String documentType;

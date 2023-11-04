@@ -12,8 +12,8 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "crbcheckRequest")
-public class CRBCheckRequest {
+@Table(name = "crbcheckrequest")
+public class CrbCheckRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
